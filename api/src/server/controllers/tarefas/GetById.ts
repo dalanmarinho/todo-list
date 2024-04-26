@@ -1,6 +1,7 @@
 import { Request, RequestHandler, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import * as yup from 'yup'
+import { TarefasProvider } from "../../database/providers/tarefas";
 
 interface IParamProps {
     id?: number;
@@ -30,9 +31,24 @@ export const getByIdValidation: RequestHandler = async (req, res, next) => {
 }
 
 
-export const getById = async (req: Request<{}, {}, {}, IParamProps>, res: Response) =>{
+export const getById = async (req: Request<IParamProps>, res: Response) =>{
 
-    console.log(req.params);
+    if(!req.params.id){
+        return res.status(StatusCodes.BAD_REQUEST).json({
+            errors: {
+                default: 'O parâmetro "id" precisa ser informado.'
+            }
+        });
+    }
+    const result = await TarefasProvider.getById(req.params.id);
 
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Não implementado");
+    if(result instanceof Error){
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            errors: {
+                default: result.message
+            }
+        });
+    }
+
+    return res.status(StatusCodes.OK).json(result);
 }
