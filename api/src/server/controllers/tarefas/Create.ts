@@ -6,15 +6,13 @@ import { TarefasProvider } from "../../database/providers/tarefas";
 
 interface IBodyProps extends Omit<ITarefa, 'id' | 'data_criacao'>{};
 
-const getFormatedDate = (currentDate: any) => {
-    return currentDate.split('/').reverse().join('-');
-}
+const now = new Date();
 
 const bodyValidation: yup.Schema<IBodyProps> = yup.object().shape({
     titulo: yup.string().required().min(3),
     descricao: yup.string().required().min(15),
-    data_tarefa: yup.date().min(getFormatedDate(new Date().toLocaleDateString())).required(),
-    tempo: yup.string().required(),
+    data_tarefa: yup.date().min(new Date(now.setDate(now.getDate() - 1))).required(),
+    tempo: yup.string().required()
 });
 
 export const createBodyValidation: RequestHandler = async (req, res, next) => {

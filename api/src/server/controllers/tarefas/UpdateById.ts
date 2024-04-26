@@ -8,21 +8,18 @@ interface IParamProps {
     id?: number;
 }
 
+const now = new Date();
+
 interface IBodyProps extends Omit<ITarefa, 'id' | 'data_criacao'> { };
 
 const paramsValidation: yup.Schema<IParamProps> = yup.object().shape({
     id: yup.number().integer().required().moreThan(0),
 });
 
-const getFormatedDate = (currentDate: any) => {
-    return currentDate.split('/').reverse().join('-');
-}
-
-
 const bodyValidation: yup.Schema<IBodyProps> = yup.object().shape({
     titulo: yup.string().required().min(3),
     descricao: yup.string().required().min(15),
-    data_tarefa: yup.date().min(getFormatedDate(new Date().toLocaleDateString())).required(),
+    data_tarefa: yup.date().min(new Date(now.setDate(now.getDate() - 1))).required(),
     tempo: yup.string().required()
 });
 
