@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body
+{
+    /* Dark Theme */
+     background: linear-gradient(to right,#1A1A1A 0%, #363835 100%); 
+     color: white; 
+}
+
+::selection
+{
+    background-color: #fa12;
+}
+
+/* -----  ----- ScrollBar -----  ----- */
+::-webkit-scrollbar 
+{
+    height: .75em;
+    width: 1em;
+}
+
+::-webkit-scrollbar-track 
+{
+    background: #262626;
+}
+   
+::-webkit-scrollbar-thumb 
+{
+    border: 2px solid #262626;
+    box-sizing: border-box;
+    border-radius: 4px;
+    background: #555; 
+}
+
+::-webkit-scrollbar-thumb:hover 
+{
+    background: #777; 
+}
