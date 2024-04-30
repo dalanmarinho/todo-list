@@ -60,7 +60,11 @@ export function Header() {
 
   const changeFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
     const filter = event.target.value;
-    setQuery(filter);
+    if(filter.length > 0){
+      setQuery(filter);
+    }else{
+      resetFilter();
+    }
   }
 
   const resetFilter = () => {
