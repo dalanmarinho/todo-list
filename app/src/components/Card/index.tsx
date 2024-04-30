@@ -1,72 +1,37 @@
-import { SquarePen, CircleUser, Calendar } from "lucide-react";
+import { Calendar, AlarmClock } from "lucide-react";
 import { ButtonDelete } from "../ButtonDelete";
-import { Link } from "react-router-dom";
+import { ButtonEdit } from "../ButtonEdit";
+import { formatDate } from "../../util/formateDate";
 
 interface CardProps {
-    churrasco: ChurrascoProps
+    tarefa: TarefaProps
 }
 
-export function Card({ churrasco }: CardProps) {
-
-    let qtd_pessoas = Number(churrasco.qtd_homens) + Number(churrasco.qtd_mulheres) + Number(churrasco.qtd_criancas);
+export function Card({ tarefa }: CardProps) {
 
     return (
         <>
-            <div className="flex flex-col gap-3 p-5 rounded-md bg-amber-50 text-neutral-950 ring-[1px] ring-amber-400">
+            <div className="flex flex-col gap-3 p-5 rounded-md bg-custom-gray-500 text-custom-gray-100 ring-[1px] ring-custom-gray-400 mb-4">
                 <div className="flex justify-between">
-                    <h2 className="flex gap-2 text-center items-center font-medium" title="Data do Churrasco"><Calendar size={22} />{churrasco.data}</h2>
-                    <p className="flex items-center gap-2 font-medium" title="Qtd. Pessoas"><CircleUser size={22} />{qtd_pessoas}</p>
+                    <h2 className="flex gap-2 text-center items-center font-medium" title="Data da Tarefa"><Calendar size={22} />{formatDate(tarefa.data_tarefa)}</h2>
+                    <p className="flex items-center gap-2 font-medium" title="Qtd. Pessoas"><AlarmClock size={22} />{tarefa.tempo}</p>
                 </div>
-                <hr className="my-2 border-amber-400" />
-                <div className="leading-7">
-                    <p className="flex justify-between">
-                        <b className="font-normal">Carne (KG):</b>
-                        <span className="flex justify-between gap-2 min-w-14">
-                             <span className="font-medium">{churrasco.carne_kg}</span>
-                             <b className="font-semibold">Kg</b>
-                        </span>
-                    </p>
-                    <p className="flex justify-between">
-                        <b className="font-normal">Pão de Alho:</b>
-                        <span className="flex justify-between gap-2 min-w-14">
-                             <span className="font-medium">{churrasco.pao_de_alho}</span>
-                             <b className="font-semibold">Un</b>
-                        </span>
-                    </p>
-                    <p className="flex justify-between">
-                        <b className="font-normal">Carvão (KG):</b>
-                        <span className="flex justify-between gap-2 min-w-14">
-                             <span className="font-medium">{churrasco.carvao_kg}</span>
-                             <b className="font-semibold">Kg</b>
-                        </span>
-                    </p>
-                    <p className="flex justify-between">
-                        <b className="font-normal">Refri (L):</b>
-                        <span className="flex justify-between gap-2 min-w-14">
-                             <span className="font-medium">{churrasco.refri_l}</span>
-                             <b className="font-semibold">L</b>
-                        </span>
-                    </p>
-                    <p className="flex justify-between">
-                        <b className="font-normal">Cerveja (L):</b>
-                        <span className="flex justify-between gap-2 min-w-14">
-                             <span className="font-medium">{churrasco.cerveja_l}</span>
-                             <b className="font-semibold">L</b>
-                        </span>
-                    </p>
-                </div>
-
-                <div className="flex flex-wrap-reverse sm:flex-nowrap gap-4 justify-between mt-4">
-                    <ButtonDelete idChurrasco={churrasco.id} />
-
-                    <Link to={`/edit-barbecue/${churrasco.id}`} className="flex w-full items-center justify-center 
-                        flex-row sm:flex-row-reverse gap-3 px-3 py-2 rounded-full bg-blue-200 text-blue-950 
-                        hover:bg-blue-300 hover:ring-[1px] hover:ring-blue-400 select-none"
-                    >
-                            <SquarePen size={20}/> Editar
-                    </Link>
+                <hr className="my-2 border-custom-gray-300" />
+                <div className="flex justify-between">
+                    <div className="leading-7 w-[80%]">
+                        <p className="font-bold text-sm">
+                            {tarefa.titulo}
+                        </p>
+                        <p className="font-normal text-sm">
+                            {tarefa.descricao}
+                        </p>
+                    </div>
+                    <div className="w-[15%] flex flex-wrap-reverse sm:flex-nowrap gap-1 justify-between">
+                        <ButtonDelete idTarefa={tarefa.id} />
+                        <ButtonEdit idTarefa={tarefa.id} />
+                    </div>
                 </div>
             </div>
         </>
-    )    
+    )
 }
