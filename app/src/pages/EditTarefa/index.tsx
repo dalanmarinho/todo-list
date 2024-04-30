@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 
 import Input from "../../components/Input";
 import toast from "react-hot-toast";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z as zod } from "zod";
@@ -31,16 +31,16 @@ const registerFormSchema = zod.object({
     .string()
     .refine(
       (value) =>
-        value.trim() !== "",
-      { message: "Informe um título válido." }
+        value.trim() !== "" && value.length >= 3,
+      { message: "Descrição deve conter pelo menos 3 caracteres." }
     ),
 
   descricao: zod
     .string()
     .refine(
       (value) =>
-        value.trim() !== "",
-      { message: "Informe uma descrição válida." }
+        value.trim() !== "" && value.length >= 25,
+      { message: "Descrição deve conter pelo menos 25 caracteres." }
     ),
 
   tempo: zod
@@ -142,11 +142,17 @@ export const EditTarefa = forwardRef((props:IEditTarefaProps, ref) => {
       }
 
       handleChildEvent();
-    } catch (error) {
+    } catch (error: any) {
+      const errorRequest = error.response.data.error
+      for (const [key, value] of Object.entries(errorRequest)) {
+        toast.error(`${key.charAt(0).toUpperCase() + key.slice(1)} ${String(value).toLowerCase()}`, {
+          position: "bottom-right",
+        });
+      }
       console.log("Erro ao processar registro:", error);
-      toast.error("Erro ao processar registro. Tente novamente.", {
-        position: "bottom-right",
-      });
+      
+      setLoading(false);
+
     }
   }
 
