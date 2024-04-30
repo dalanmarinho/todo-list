@@ -8,13 +8,15 @@ interface IQueryProps {
     limit?: number;
     filter?: string;
     id?: number;
+    order?: string;
 }
 
 const queryValidation: yup.Schema<IQueryProps> = yup.object().shape({
     page: yup.number().moreThan(0),
     limit: yup.number().moreThan(0),
     filter: yup.string(),
-    id: yup.number().moreThan(0)
+    id: yup.number().moreThan(0),
+    order: yup.string(),
 });
 
 export const getAllValidation: RequestHandler = async (req, res, next) => {
@@ -38,7 +40,7 @@ export const getAllValidation: RequestHandler = async (req, res, next) => {
 
 
 export const getAll = async (req: Request<{}, {}, {}, IQueryProps>, res: Response) =>{
-    const result = await TarefasProvider.getAll(req.query.page || 1, req.query.limit || 10,req.query.filter || '', Number(req.query.id));
+    const result = await TarefasProvider.getAll(req.query.page || 1, req.query.limit || 10, req.query.filter || '', Number(req.query.id),  req.query.order || '');
     const count = await TarefasProvider.count(req.query.filter || '');
 
     if(result instanceof Error){

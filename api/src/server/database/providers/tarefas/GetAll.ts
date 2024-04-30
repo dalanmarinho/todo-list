@@ -2,14 +2,16 @@ import { ITarefa } from "../../models";
 import { ETablesNames } from "../../ETablesNames";
 import { Knex } from "../../knex";
 
-export const getAll = async (page: number, limit: number, filter: string, id = 0): Promise<ITarefa[] | Error> => {
+export const getAll = async (page: number, limit: number, filter: string, id = 0, order:string): Promise<ITarefa[] | Error> => {
     try {
         const result = await Knex(ETablesNames.tarefas)
         .select('*')
         .where('id',Number(id))
         .orWhere('titulo', 'like', `%${filter}%`)
+        .orWhere('descricao', 'like', `%${filter}%`)
         .offset((page-1) * limit)
-        .limit(limit);
+        .limit(limit)
+        .orderBy("data_tarefa", String(order));
 
         return result;
 
