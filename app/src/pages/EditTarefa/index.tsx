@@ -52,9 +52,14 @@ const registerFormSchema = zod.object({
     ),
 });
 
+interface IEditTarefaProps {
+  parentFunction?: any;
+  idTarefa?: number;
+}
+
 export type RegisterFormData = zod.infer<typeof registerFormSchema>;
 
-export const EditTarefa = forwardRef((props, ref) => {
+export const EditTarefa = forwardRef((props:IEditTarefaProps, ref) => {
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
 

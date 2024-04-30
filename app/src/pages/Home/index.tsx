@@ -9,11 +9,11 @@ import { useTarefaContext } from "../../context/getAll";
 
 export function Home() {
   const [data, setData] = useTarefaContext();
-  const [order, setOrder] = useState();
+  const [order, setOrder] = useState("");
 
-  const orderByTarefas = (event) => {
-
-    setOrder(event.target.value);
+  const orderByTarefas = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    if(event?.target?.value)
+      setOrder(event.target.value);
   }
 
   useEffect(() => {

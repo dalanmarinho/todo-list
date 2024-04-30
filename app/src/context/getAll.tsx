@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useEffect, useState } from "react";
+import { type Dispatch, type SetStateAction, ReactNode, createContext, useContext, useEffect, useState } from "react";
 
 import { formatDate } from "../util/formateDate";
 import { RegisterFormData } from "../pages/EditTarefa";
@@ -10,14 +10,15 @@ interface TarefaProviderProps {
   children: ReactNode;
 }
 
-// interface TarefaContextType {
-//   getAllTarefas: () => TarefaProps[];
-// }
+type ITarefaState = [
+  ITarefa[],
+  Dispatch<SetStateAction<ITarefa[]>>,
+];
 
-const TarefaContext = createContext();
+const TarefaContext = createContext<ITarefaState>([[], () => {}]);
 
 export function TarefaProvider({ children }: TarefaProviderProps) {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<ITarefa[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -50,4 +51,4 @@ export function TarefaProvider({ children }: TarefaProviderProps) {
     </TarefaContext.Provider>
   );
 }
-export const useTarefaContext = () => useContext(TarefaContext)
+export const useTarefaContext = () => useContext(TarefaContext);

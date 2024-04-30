@@ -58,7 +58,7 @@ export function Header() {
     formState: { errors },
   } = useForm<RegisterFormData>({ resolver: zodResolver(registerFormSchema) });
 
-  const changeFilter = (event) => {
+  const changeFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
     const filter = event.target.value;
     setQuery(filter);
   }

@@ -1,7 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
-import { AlertCircle, SquarePen, X, PlusCircle } from "lucide-react";
+import { SquarePen, X, PlusCircle } from "lucide-react";
 import { EditTarefa } from "../../pages/EditTarefa";
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { BASE_URL } from "../../util/api";
 import axios from "axios";
 import { useTarefaContext } from "../../context/getAll";
@@ -23,7 +23,7 @@ export function ButtonEdit({ idTarefa, headerButton }: ButtonEditProps) {
     //     // <Dialog.Close></Dialog.Close>
     // }
     const childRef = useRef(null);
-    const handleParentFunction = () => {
+    const handleParentFunction = ():void => {
         // Do something in the parent component 
         axios.get(BASE_URL)
             .then((response) => {
