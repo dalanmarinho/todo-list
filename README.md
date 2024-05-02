@@ -5,7 +5,7 @@
 Este projeto consiste em uma SPA para gerenciar uma lista de tarefas, onde os usuários podem criar, visualizar, editar e excluir suas tarefas cadastradas. A aplicação será desenvolvida utilizando React com Vite e Tailwind UI, com NodeJS e TypeScript no desenvolvimento da API REST.
 
 - Deploy [Frontend](https://todo-list-rho-ebon-67.vercel.app/)
-- Deploy [Backend](https://todo-list-0ofp.onrender.com)
+- Deploy [Backend](https://todo-list-0ofp.onrender.com/tarefas)
 
 
 ## 📦 Tecnologias usadas:
