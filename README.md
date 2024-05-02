@@ -27,7 +27,3 @@ Este projeto consiste em uma SPA para gerenciar uma lista de tarefas, onde os us
 ## 👷 Autor
 
 - [Dalan Marinho](https://github.com/dalanmarinho)
-
-## Licença:
-
-Este projeto está licenciado sob a [MIT License](LICENSE).
